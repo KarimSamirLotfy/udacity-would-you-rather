@@ -9,18 +9,16 @@ const Nav = ({}) => {
   const location = useLocation();
   return (
     <div>
-      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
-        <Menu.Item>
-          <Title>{location.pathname || "Home"}</Title>
-        </Menu.Item>
-
-        <Menu.Item>
+      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["questions"]}>
+        <Menu.Item key="questions">
           <Link to="/">Questions</Link>
         </Menu.Item>
-        <Menu.Item>
+        <Menu.Item key="add">
           <Link to="/AddQuestion">ADD You Question</Link>
         </Menu.Item>
-
+        <Menu.Item key="leaderboards">
+          <Link to="/leaderboard">LeaderBoard</Link>
+        </Menu.Item>
       </Menu>
     </div>
   );
