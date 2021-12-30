@@ -45,6 +45,7 @@ export const App = ({ authedUser = undefined, dispatch }) => {
             <Content
               style={{
                 margin: "20px",
+                width: "1500px",
               }}
             >
               <Routes>
@@ -57,7 +58,6 @@ export const App = ({ authedUser = undefined, dispatch }) => {
             <Sider
               theme="light"
               style={{
-              
                 margin: "20px",
               }}
             >
