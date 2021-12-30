@@ -14,6 +14,7 @@ import NavBar from "./NavBar";
 import Poll from "./Poll";
 import LoginScreen from "./LoginScreen";
 import LeaderBoard from "./LeaderBoard";
+import Error404 from "./error404";
 
 const { Header, Footer, Sider, Content } = Layout;
 export const App = ({ authedUser = undefined, dispatch }) => {
@@ -53,6 +54,7 @@ export const App = ({ authedUser = undefined, dispatch }) => {
                 <Route path="/AddQuestion" element={<AddQuestion />} exact />
                 <Route path="/questions/:id" element={<Poll />} />
                 <Route path="/leaderboard" element={<LeaderBoard />} />
+                <Route path="/error404" element={<Error404 />} />
               </Routes>
             </Content>
             <Sider

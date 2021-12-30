@@ -2,7 +2,7 @@ import { Button, Col, Row, Typography } from "antd";
 import Avatar from "antd/lib/avatar/avatar";
 import React from "react";
 import { connect } from "react-redux";
-import { useLocation, useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import {
   CloseOutlined,
   CheckOutlined,
@@ -11,10 +11,18 @@ import {
 } from "@ant-design/icons";
 // import { Pie, measureTextWidth } from "@ant-design/charts";
 import { PieChart } from "react-minimal-pie-chart";
+import Error404 from "./error404";
 
 const { Text } = Typography;
-const Poll = ({ authedUser, questions, users }) => {
-  const { id = "8xf0y6ziyjabvozdd253nd" } = useLocation().state; // this to get state based on location or url
+
+const Poll = (props = {}) => {
+     let nav = useNavigate();
+     if (!useLocation().state) {
+       return <Error404/>
+     }
+    const { authedUser, questions, users } = props
+  
+  const { id } = useLocation().state; // this to get state based on location or url
   const question = questions[id];
   const {
     author: author_id,
@@ -89,16 +97,11 @@ const Poll = ({ authedUser, questions, users }) => {
   );
 };
 
-const mapStateToProps = ({ authedUser, questions, users }, props) => {
-  const quesiton_id = props["id"];
-  const question = questions[quesiton_id];
-  console.log(props["id"], question);
-
+const mapStateToProps = ({ authedUser, questions, users } = {}, props = {}) => {
   return {
-    authedUser,
-    questions,
-    users,
-    question: question,
+    authedUser: authedUser,
+    questions: questions,
+    users:users,
   };
 };
 
