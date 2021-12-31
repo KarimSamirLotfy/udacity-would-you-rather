@@ -16,6 +16,7 @@ import {
 import { saveQuestion } from "../actions/Questions";
 import questions from "../reducers/questions";
 import { _getQuestions } from "../utils/_DATA";
+import { useNavigate } from "react-router";
 const { Option } = Select;
 const formItemLayout = {
   labelCol: {
@@ -27,6 +28,7 @@ const formItemLayout = {
     sm: { span: 16 },
   },
 };
+
 const tailFormItemLayout = {
   wrapperCol: {
     xs: {
@@ -42,6 +44,7 @@ const tailFormItemLayout = {
 
 export const AddQuestion = ({dispatch, authedUser}) => {
   const [form] = Form.useForm();
+  const navigate = useNavigate()
   const onFinish = async (values) => {
     console.log("Options to choose from", values);
     // here we dispatch the action 
@@ -55,6 +58,7 @@ export const AddQuestion = ({dispatch, authedUser}) => {
     dispatch(saveQuestion(quesition_obj));
 
     console.log(`${JSON.stringify(await _getQuestions())}`)
+    navigate('../') // Nav back
   };
   return (
     <div>

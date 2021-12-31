@@ -51,7 +51,7 @@ export const App = ({ authedUser = undefined, dispatch }) => {
             >
               <Routes>
                 <Route path="/" element={<QuestionList />} exact />
-                <Route path="/AddQuestion" element={<AddQuestion />} exact />
+                <Route path="/add" element={<AddQuestion />} exact />
                 <Route path="/questions/:id" element={<Poll />} />
                 <Route path="/leaderboard" element={<LeaderBoard />} />
                 <Route path="/error404" element={<Error404 />} />

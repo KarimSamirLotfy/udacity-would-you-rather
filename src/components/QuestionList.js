@@ -5,12 +5,12 @@ import { get_questions, answerQuestion } from "../actions/Questions";
 import { _saveQuestion } from "../utils/_DATA";
 import Question from "./Question";
 import { Link } from "react-router-dom";
-import { Tabs } from "antd";
+import { Avatar, Tabs } from "antd";
 import {useNavigate} from 'react-router'
 
 const { TabPane } = Tabs;
 
-export const QuestionList = ({ dispatch, questions = [], authedUser }) => {
+export const QuestionList = ({ dispatch, questions = [], authedUser, users }) => {
   useEffect(() => {
     dispatch(get_questions());
     console.log(questions);
@@ -71,6 +71,8 @@ export const QuestionList = ({ dispatch, questions = [], authedUser }) => {
               let question = questions[key];
               const id = questions[key]["id"];
               console.log("ques:", id);
+               const author_obj = users[question.author];
+               const { avatarURL: author_avatar } = author_obj;
               return (
                 <Link
                   onClick={(e) => {
@@ -80,8 +82,11 @@ export const QuestionList = ({ dispatch, questions = [], authedUser }) => {
                   to={`questions/:${id}`}
                   state={{ id: id }}
                 >
+                   
                   <Question
                     key={index}
+                    authorURL={author_avatar}
+                    author={author_obj}
                     chooseOne={() => {
                       choose(question["id"], "optionOne");
                     }}
@@ -114,7 +119,11 @@ export const QuestionList = ({ dispatch, questions = [], authedUser }) => {
             .map((key, index) => {
               let question = questions[key];
               const id = questions[key]["id"];
-              console.log("ques:", id);
+              const author_obj = users[question.author]
+              const { avatarURL: author_avatar } = author_obj;
+              console.log("ques:", author_obj);
+              console.dir(author_obj)
+              console.log("author", author_obj["avatarURL"]);
               return (
                 <Link
                   onClick={(e) => {
@@ -126,6 +135,7 @@ export const QuestionList = ({ dispatch, questions = [], authedUser }) => {
                 >
                   <Question
                     key={index}
+                    author = {author_obj}
                     chooseOne={() => {
                       choose(question["id"], "optionOne");
                     }}
@@ -133,6 +143,7 @@ export const QuestionList = ({ dispatch, questions = [], authedUser }) => {
                       choose(question["id"], "optionTwo");
                     }}
                     question={questions[key]}
+                    avatarURL={author_obj["avatarURL"]}
                   />
                 </Link>
               );
@@ -146,6 +157,7 @@ export const QuestionList = ({ dispatch, questions = [], authedUser }) => {
 const mapStateToProps = (state) => ({
   questions: state.questions,
   authedUser: state.authedUser,
+  users:state.users
 });
 
 export default connect(mapStateToProps)(QuestionList);
